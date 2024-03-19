@@ -23,24 +23,26 @@ acharpasswordField.send_keys('secret_sauce')
 loginButton = '//input[@id="login-button"]'
 acharloginButton = driver.find_element(By.XPATH, loginButton)
 acharloginButton.click()
-#pegar o titulo do produto
+#pegar o titulo dos produtos
 nomeDosProdutos = driver.find_elements(By.XPATH, "//div[@class='inventory_item_name ']")
+#pega o preço dos produtos
 precoDosProdutos = driver.find_elements(By.XPATH, "//div[@class='inventory_item_price']")
-col = 1
-col2 = 2
-
+#criando a planilha no excel para escrever os produtos
 workbook = excel.Workbook(r'C:\pasta4\Python\Basic Logon\produtos.xlsx')
 worksheet = workbook.add_worksheet()
 worksheet.write('A1', 'Nome do Produto')
 worksheet.write('B1', 'Preço do Produto')
-
+#fazendo um loop sobre cada produto dentro da lista nomeDosProdutos
 for i in range(len(nomeDosProdutos)):
+  #extrai cada nome de item e valor do item para a variavel
   produtoNome = nomeDosProdutos[i].text
   produtoPreco = precoDosProdutos[i].text
+  #para ter visualização se está correto
   print(produtoNome)
   print(produtoPreco)
+  #ele escreve na linha+1 na coluna referenciada o nome e o preço do produto
   worksheet.write(i + 1, 0, produtoNome)
   worksheet.write(i + 1, 1, produtoPreco)
-
+#salva o arquivo excel e finaliza
 workbook.close()
 time.sleep(3)
